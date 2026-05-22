@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(git init \"C:\\\\Users\\\\Khaled Gharaibeh\\\\EA Framework\")"
+    ]
+  }
+}

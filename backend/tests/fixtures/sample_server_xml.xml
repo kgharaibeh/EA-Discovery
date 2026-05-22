@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="8005" shutdown="SHUTDOWN">
+  <Service name="Catalina">
+    <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443"/>
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol" SSLEnabled="true"/>
+    <Engine name="Catalina" defaultHost="localhost">
+      <Host name="localhost" appBase="webapps">
+        <Context path="/hr-portal" docBase="hr-portal"/>
+      </Host>
+    </Engine>
+  </Service>
+  <GlobalNamingResources>
+    <Resource name="jdbc/HRDatabase"
+              type="javax.sql.DataSource"
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@10.0.2.20:1521/PRODDB"
+              username="hr_app"
+              maxActive="50"/>
+  </GlobalNamingResources>
+</Server>

@@ -1,0 +1,8 @@
+State      Recv-Q Send-Q Local Address:Port               Peer Address:Port              Process
+LISTEN     0      128    0.0.0.0:22                0.0.0.0:*                  users:(("sshd",pid=1000,fd=3))
+LISTEN     0      128    0.0.0.0:7001              0.0.0.0:*                  users:(("java",pid=12345,fd=45))
+LISTEN     0      128    0.0.0.0:7002              0.0.0.0:*                  users:(("java",pid=12345,fd=46))
+ESTAB      0      0      10.0.1.10:45321           10.0.2.20:1521             users:(("java",pid=12345,fd=60))
+ESTAB      0      0      10.0.1.10:45322           10.0.2.20:1521             users:(("java",pid=12345,fd=61))
+ESTAB      0      0      10.0.1.10:38800           10.0.4.10:636              users:(("java",pid=12345,fd=70))
+ESTAB      0      0      10.0.3.30:52100           10.0.1.10:7001             users:(("node",pid=2100,fd=15))

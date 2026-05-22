@@ -1,0 +1,106 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/ea_discovery
+      - MONGODB_DATABASE=ea_discovery
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CREDENTIAL_BACKEND=encrypted_file
+      - CREDENTIAL_MASTER_KEY=${CREDENTIAL_MASTER_KEY:-change-me-32-byte-key-for-aes256}
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OLLAMA_URL=http://ollama:11434
+      - SCAN_CONCURRENCY=10
+      - SCAN_TIMEOUT=300
+    depends_on:
+      - mongo
+      - redis
+    volumes:
+      - credential_store:/app/credentials/store
+      - export_output:/app/exports
+    restart: unless-stopped
+
+  celery_worker:
+    build: ./backend
+    command: celery -A tasks.celery_app worker --loglevel=info --concurrency=4
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/ea_discovery
+      - MONGODB_DATABASE=ea_discovery
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CREDENTIAL_BACKEND=encrypted_file
+      - CREDENTIAL_MASTER_KEY=${CREDENTIAL_MASTER_KEY:-change-me-32-byte-key-for-aes256}
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OLLAMA_URL=http://ollama:11434
+    depends_on:
+      - mongo
+      - redis
+    volumes:
+      - credential_store:/app/credentials/store
+    restart: unless-stopped
+
+  celery_beat:
+    build: ./backend
+    command: celery -A tasks.celery_app beat --loglevel=info
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/ea_discovery
+      - CELERY_BROKER_URL=redis://redis:6379/1
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    profiles:
+      - local-llm
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+  redis_data:
+  credential_store:
+  export_output:
+  ollama_models:

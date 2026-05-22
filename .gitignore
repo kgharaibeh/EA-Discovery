@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/build/
+.npm
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credentials
+credentials/*.enc
+*.pem
+*.key
+
+# Exports
+exports/
+
+# Coverage
+htmlcov/
+.coverage
+coverage.xml
+
+# Logs
+*.log
+logs/
+
+# MongoDB data (local)
+mongo_data/
