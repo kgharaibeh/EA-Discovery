@@ -1,0 +1,85 @@
+{
+  "subnet": "192.168.0.0/24",
+  "scan_time": "2026-05-22T20:36:56.755955",
+  "elapsed_seconds": 31.03,
+  "summary": {
+    "live_hosts": 3,
+    "hosts_with_services": 3,
+    "total_open_ports": 8
+  },
+  "hosts": [
+    {
+      "host": "192.168.0.1",
+      "hostname": "192.168.0.1",
+      "asset_type": "web_service",
+      "open_ports": [
+        {
+          "port": 53,
+          "service": "DNS",
+          "state": "open"
+        },
+        {
+          "port": 80,
+          "service": "HTTP",
+          "state": "open"
+        },
+        {
+          "port": 443,
+          "service": "HTTPS",
+          "state": "open"
+        }
+      ],
+      "banners": {
+        "80": "HTTP/1.0 200 OK"
+      },
+      "scanned_at": "2026-05-22T20:36:43.627383"
+    },
+    {
+      "host": "192.168.0.131",
+      "hostname": "ExtenderWiFiPlus",
+      "asset_type": "web_service",
+      "open_ports": [
+        {
+          "port": 53,
+          "service": "DNS",
+          "state": "open"
+        },
+        {
+          "port": 80,
+          "service": "HTTP",
+          "state": "open"
+        }
+      ],
+      "banners": {
+        "80": "HTTP/1.0 200 OK\r\nContent-type: text/html\r\nDate: Fri, 02 Jan 1970 09:12:40 GMT\r\nConnection: close\r\nCache-Control: no-cache\r\nPragma: no-cache\r\nX-Frame-Options: SAMEORIGIN\r\nContent-length: 342"
+      },
+      "scanned_at": "2026-05-22T20:36:51.668057"
+    },
+    {
+      "host": "192.168.0.242",
+      "hostname": "kg-x1",
+      "asset_type": "database",
+      "open_ports": [
+        {
+          "port": 445,
+          "service": "SMB",
+          "state": "open"
+        },
+        {
+          "port": 3306,
+          "service": "MySQL",
+          "state": "open"
+        },
+        {
+          "port": 5432,
+          "service": "PostgreSQL",
+          "state": "open"
+        }
+      ],
+      "banners": {
+        "3306": "I\u0000\u0000\u0000\n9.0.1\u0000\t\u0000\u0000\u0000\u0017\u0003@T\u00114\u0016Q\u0000\ufffd\ufffd\ufffd\u0002\u0000\ufffd\ufffd\u0015\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0005\u0013\u0013b\u00164\u0013Oi#z\u0016\u0000caching_sha2_password\u0000"
+      },
+      "scanned_at": "2026-05-22T20:36:56.754182"
+    }
+  ]
+}
